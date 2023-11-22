@@ -18,34 +18,28 @@ public class Main {
 
   public static void main(String[] args) {
     Pizzeria pizzeria = new Pizzeria();
-    // Зчитування піц з файлу
     List<Pizza> pizzas = readPizzasFromFile("pizzas.txt");
 
-    // Зчитування клієнтів з файлу
     List<Customer> customersList = readCustomersFromFile("customers.txt");
 
     serializeCollection(PIZZAS_FILE, pizzas);
     serializeCollection(CUSTOMERS_FILE, customersList);
 
-    // Створення об'єктів Order
     Order order1 = new Order(pizzas.get(0), customersList.get(0), parseTime("12:00"));
     Order order2 = new Order(pizzas.get(1), customersList.get(0), parseTime("13:30"));
     Order order3 = new Order(pizzas.get(0), customersList.get(1), parseTime("14:45"));
     Order order4 = new Order(pizzas.get(0), customersList.get(0), parseTime("14:50"));
 
-    // Додавання замовлень до клієнтів
     customersList.get(0).getOrders().add(order1);
     customersList.get(1).getOrders().add(order2);
     customersList.get(1).getOrders().add(order3);
     customersList.get(1).getOrders().add(order4);
 
-    // Додавання клієнтів та піць до Pizzeria
     pizzeria.getCustomers().addAll(customersList);
     pizzeria.getPizzas().addAll(pizzas);
 
     Map<Pizza, List<Customer>> pizzasWithCustomers2 = pizzeria.getPizzasWithCustomers();
 
-    // Вивід результату
     pizzasWithCustomers2.forEach((pizza, customers) -> {
       System.out.println("Pizza: " + pizza.getName());
       System.out.println("Customers:");
@@ -62,7 +56,7 @@ public class Main {
       displayMenu();
       System.out.print("Enter your choice (1-6, 0 to exit): ");
       choice = scanner.nextInt();
-      scanner.nextLine(); // consume the newline character
+      scanner.nextLine();
 
       switch (choice) {
         case 1:
@@ -84,10 +78,8 @@ public class Main {
           System.out.println("Customer with most pizzas: " + customerWithMostPizzas.getName());
           break;
         case 5:
-          // Виклик методу getPizzasWithCustomers
           Map<Pizza, List<Customer>> pizzasWithCustomers = pizzeria.getPizzasWithCustomers();
 
-          // Вивід результату
           pizzasWithCustomers.forEach((pizza, customers) -> {
             System.out.println("Pizza: " + pizza.getName());
             System.out.println("Customers:");
@@ -171,7 +163,7 @@ public class Main {
         String line = scanner.nextLine();
         String[] customerData = line.split(",");
         int id = Integer.parseInt(customerData[0]);
-        String name = customerData[1]; // Додано зчитування імені
+        String name = customerData[1];
         String address = customerData[2];
         Customer customer = new Customer(id, name, address, new ArrayList<>());
         customers.add(customer);

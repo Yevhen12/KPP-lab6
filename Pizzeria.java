@@ -11,8 +11,6 @@ public class Pizzeria implements Serializable {
     this.customers = new ArrayList<>();
   }
 
-  // Геттери та сеттери
-
   public void addPizza(Pizza pizza) {
     pizzas.add(pizza);
   }
@@ -66,7 +64,6 @@ public List<Order> getUnfulfilledOrders(Date currentTime, int timeoutMinutes) {
           .filter(order -> order.getDeliveryTime().after(currentTime)
               && order.getDeliveryTime().getTime() - currentTime.getTime() > timeoutMinutes * 60 * 1000))
       .map(order -> {
-          // Оновлення часу перетермінування на 1 годину більше від часу доставки
           Calendar rescheduleTime = Calendar.getInstance();
           rescheduleTime.setTime(order.getDeliveryTime());
           rescheduleTime.add(Calendar.HOUR, 1);
