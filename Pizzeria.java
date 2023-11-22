@@ -1,8 +1,7 @@
-import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Pizzeria implements Serializable {
+public class Pizzeria {
   private List<Pizza> pizzas;
   private List<Customer> customers;
 
